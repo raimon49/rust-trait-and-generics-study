@@ -14,6 +14,8 @@ fn min<T: Ord>(value1: T, value2: T) -> T {
 }
 
 fn main() {
+    // Vec<u8>はstd::io::Writeを実装している
+    // traitメソッドはスコープ内で見えている（useされている）必要があり、見えないと呼べずエラーになる
     let mut bytes = vec![];
     let _ = say_hello(&mut bytes);
     assert_eq!(bytes, b"hello, world\n");
