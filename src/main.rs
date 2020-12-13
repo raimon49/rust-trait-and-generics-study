@@ -24,4 +24,9 @@ fn main() {
     let _ = buf.write_all(b"hello");
 
     let _ = min(5, 4);
+
+    // 変数のサイズがコンパイル時に決められないためエラーになる
+    // let _writer: Write = buf;
+    // トレイト型への参照（trait object）であればC#やJavaのように変数へ代入可能
+    let _writer: &mut dyn Write = &mut buf;
 }
