@@ -5,6 +5,12 @@ fn say_hello(out: &mut dyn Write) -> std::io::Result<()> {
     out.flush()
 }
 
+// 型パラメータWはWriteトレイトを実装した何らかの型なら引数で受け付けられる
+fn say_hello_generic<W: Write>(out: &mut W) -> std::io::Result<()> {
+    out.write_all(b"hello, world\n")?;
+    out.flush()
+}
+
 fn min<T: Ord>(value1: T, value2: T) -> T {
     if value1 <= value2 {
         value1
@@ -29,4 +35,7 @@ fn main() {
     // let _writer: Write = buf;
     // トレイト型への参照（trait object）であればC#やJavaのように変数へ代入可能
     let _writer: &mut dyn Write = &mut buf;
+
+    // ジェネリック関数の呼び出し
+    let _ = say_hello_generic(&mut bytes);
 }
