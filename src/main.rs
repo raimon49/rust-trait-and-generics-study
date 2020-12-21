@@ -1,4 +1,5 @@
 use std::io::Write;
+use std::ops::Range;
 
 fn say_hello(out: &mut dyn Write) -> std::io::Result<()> {
     out.write_all(b"hello, world\n")?;
@@ -26,7 +27,32 @@ struct Canvas {
 
 trait Visible {
     fn draw(&self, canvas: &mut Canvas);
-    fn hit_test(&self, x: i32, y: i32);
+    fn hit_test(&self, x: i32, y: i32) -> bool;
+}
+
+struct Broom {
+    x: i32,
+    y: i32,
+    width: i32,
+    height: i32
+}
+
+impl Broom {
+    fn broomstick_range(&self) -> Range<i32> {
+        self.y - self.height - 1 .. self.y
+    }
+}
+
+impl Visible for Broom {
+    fn draw(&self, canvas: &mut Canvas) {
+        for y in self.broomstick_range() {
+            let _ = canvas;
+        }
+    }
+
+    fn hit_test(&self, x: i32, y: i32) -> bool {
+        self.width < y && self.height < x
+    }
 }
 
 fn main() {
