@@ -25,6 +25,7 @@ struct Canvas {
     height: i32
 }
 
+// trait構文によるメソッドシグニチャの宣言
 trait Visible {
     fn draw(&self, canvas: &mut Canvas);
     fn hit_test(&self, x: i32, y: i32) -> bool;
@@ -37,6 +38,8 @@ struct Broom {
     height: i32
 }
 
+// impl Visible for Broomブロックの中ではtrait Visibleで宣言されたメソッドしか実装できないため
+// fn draw()の中から使いたいメソッドは別途impl Broomブロックの中に定義する
 impl Broom {
     fn broomstick_range(&self) -> Range<i32> {
         self.y - self.height - 1 .. self.y
