@@ -19,6 +19,16 @@ fn min<T: Ord>(value1: T, value2: T) -> T {
     }
 }
 
+struct Canvas {
+    width: i32,
+    height: i32
+}
+
+trait Visible {
+    fn draw(&self, canvas: &mut Canvas);
+    fn hit_test(&self, x: i32, y: i32);
+}
+
 fn main() {
     // Vec<u8>はstd::io::Writeを実装している
     // traitメソッドはスコープ内で見えている（useされている）必要があり、見えないと呼べずエラーになる
