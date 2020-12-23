@@ -1,4 +1,4 @@
-use std::io::Write;
+use std::io::{Write, Result};
 use std::ops::Range;
 
 fn say_hello(out: &mut dyn Write) -> std::io::Result<()> {
@@ -56,6 +56,22 @@ impl Visible for Broom {
     fn hit_test(&self, x: i32, y: i32) -> bool {
         self.width < y && self.height < x
     }
+}
+
+// 何もしないWriteの実装としてSinkを定義
+pub struct Sink;
+
+impl Write for Sink {
+    fn write(&mut self, buf: &[u8]) -> Result<usize> {
+        // バッファにすべて書き出したことにする
+        Ok(buf.len())
+    }
+
+    fn flush(&mut self) -> Result<()> {
+        Ok(())
+    }
+
+    // fn write_all() はWriteトレイトにデフォルト実装を持っているため、定義しなくてもよい
 }
 
 fn main() {
