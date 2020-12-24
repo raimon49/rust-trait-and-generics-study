@@ -74,6 +74,17 @@ impl Write for Sink {
     // fn write_all() はWriteトレイトにデフォルト実装を持っているため、定義しなくてもよい
 }
 
+trait IsEmoji {
+    fn is_emoji(&self) -> bool;
+}
+
+// 任意の組み込み型に対してもトレイトを使ってメソッドが追加できる
+impl IsEmoji for char {
+    fn is_emoji(&self) -> bool {
+        false
+    }
+}
+
 fn main() {
     // Vec<u8>はstd::io::Writeを実装している
     // traitメソッドはスコープ内で見えている（useされている）必要があり、見えないと呼べずエラーになる
@@ -93,4 +104,6 @@ fn main() {
 
     // ジェネリック関数の呼び出し
     let _ = say_hello_generic(&mut bytes);
+
+    assert_eq!('$'.is_emoji(), false);
 }
