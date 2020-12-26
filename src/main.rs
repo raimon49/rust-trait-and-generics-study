@@ -85,6 +85,13 @@ impl IsEmoji for char {
     }
 }
 
+// トレイトVisibleのサブトレイト
+// Creatureトレイトを実装するすべての型ではVisibleで定義されたメソッドも実装しなければならない
+trait Creature: Visible {
+    fn position(&self) -> (i32, i32);
+    fn facing(&self) -> i32;
+}
+
 fn main() {
     // Vec<u8>はstd::io::Writeを実装している
     // traitメソッドはスコープ内で見えている（useされている）必要があり、見えないと呼べずエラーになる
