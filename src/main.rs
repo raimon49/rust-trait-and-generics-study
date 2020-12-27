@@ -94,8 +94,11 @@ trait Creature: Visible {
 
 trait StringSet {
     // 引数selfを取らないスタティックメソッド（コンストラクタ）
-    fn new() -> Self;
-    fn from_slice(strings: &[&str]) -> Self;
+    // サポートしなくて良いようコンパイラに伝えるSizedトレイトにするとトレイトオブジェクトを作ることができる
+    fn new() -> Self
+        where Self: Sized;
+    fn from_slice(strings: &[&str]) -> Self
+        where Self: Sized;
 
     fn contains(&self, string: &str) -> bool;
     fn add(&mut self, string: &str);
