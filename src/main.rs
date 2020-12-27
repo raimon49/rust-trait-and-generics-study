@@ -92,6 +92,15 @@ trait Creature: Visible {
     fn facing(&self) -> i32;
 }
 
+trait StringSet {
+    // 引数selfを取らないスタティックメソッド（コンストラクタ）
+    fn new() -> Self;
+    fn from_slice(strings: &[&str]) -> Self;
+
+    fn contains(&self, string: &str) -> bool;
+    fn add(&mut self, string: &str);
+}
+
 fn main() {
     // Vec<u8>はstd::io::Writeを実装している
     // traitメソッドはスコープ内で見えている（useされている）必要があり、見えないと呼べずエラーになる
