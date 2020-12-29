@@ -125,4 +125,10 @@ fn main() {
     let _ = say_hello_generic(&mut bytes);
 
     assert_eq!('$'.is_emoji(), false);
+
+    // 次の4つのメソッド呼び出しは等価
+    // value.method()は修飾メソッド呼び出し
+    // <type as Trait>.method()完全修飾（fully qualified）メソッド呼び出し
+    assert_eq!("hello".to_string(), str::to_string("hello"));
+    assert_eq!(ToString::to_string("hello"), <str as ToString>::to_string("hello"));
 }
