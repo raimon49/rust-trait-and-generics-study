@@ -131,4 +131,9 @@ fn main() {
     // <type as Trait>.method()完全修飾（fully qualified）メソッド呼び出し
     assert_eq!("hello".to_string(), str::to_string("hello"));
     assert_eq!(ToString::to_string("hello"), <str as ToString>::to_string("hello"));
+
+    let zero = 0;
+    // let _ = zero.abs();
+    // 型が指定されていないためコンパイラにはabsメソッドが見付けられない
+    let _ = i64::abs(zero);
 }
