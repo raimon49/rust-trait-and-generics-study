@@ -106,6 +106,7 @@ trait StringSet {
     fn add(&mut self, string: &str);
 }
 
+// {:?}フォーマット指示子で出力できるようIteratorとDebugを実装していることをwhereで明示
 fn dump<I>(iter: I)
     where I: Iterator, I::Item: Debug
 {
