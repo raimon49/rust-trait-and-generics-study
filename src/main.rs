@@ -116,6 +116,12 @@ fn dump<I>(iter: I)
 }
 
 // Iteratorトレイトの関連型ItemがStringであることを明示してもコンパイルを通る
+// 関連型（associated type）はIteratorトレイトで宣言されている
+// pub trait Iterator {
+//     type Item;
+//
+//     fn next(&mut self) -> Option<Self::Item>;
+// }
 fn dumpOther<I>(iter: I)
     where I: Iterator<Item=String>
 {
