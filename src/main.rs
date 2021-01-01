@@ -130,6 +130,20 @@ fn dumpOther<I>(iter: I)
     }
 }
 
+// 自分で関連型（associated type）を活用する例
+trait Pattern {
+    type Match;
+    fn search(&self, string: &str) -> Option<Self::Match>;
+}
+
+impl Pattern for char {
+    type Match = usize;
+    fn search(&self, string: &str) -> Option<Self::Match> {
+        // マッチした文字列の位置を返す
+        Some(10)
+    }
+}
+
 fn main() {
     // Vec<u8>はstd::io::Writeを実装している
     // traitメソッドはスコープ内で見えている（useされている）必要があり、見えないと呼べずエラーになる
