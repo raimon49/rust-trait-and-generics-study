@@ -1,5 +1,7 @@
 use std::io::{Write, Result};
 use std::ops::Range;
+use std::iter::Iterator;
+use std::fmt::Debug;
 
 fn say_hello(out: &mut dyn Write) -> std::io::Result<()> {
     out.write_all(b"hello, world\n")?;
@@ -102,6 +104,14 @@ trait StringSet {
 
     fn contains(&self, string: &str) -> bool;
     fn add(&mut self, string: &str);
+}
+
+fn dump<I>(iter: I)
+    where I: Iterator, I::Item: Debug
+{
+    for (index, value) in iter.enumerate() {
+        println!("{}: {:?}", index, value);
+    }
 }
 
 fn main() {
