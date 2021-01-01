@@ -115,6 +115,15 @@ fn dump<I>(iter: I)
     }
 }
 
+// Iteratorトレイトの関連型ItemがStringであることを明示してもコンパイルを通る
+fn dumpOther<I>(iter: I)
+    where I: Iterator<Item=String>
+{
+    for (index, value) in iter.enumerate() {
+        println!("{}: {:?}", index, value);
+    }
+}
+
 fn main() {
     // Vec<u8>はstd::io::Writeを実装している
     // traitメソッドはスコープ内で見えている（useされている）必要があり、見えないと呼べずエラーになる
