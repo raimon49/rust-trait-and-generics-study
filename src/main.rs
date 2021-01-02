@@ -176,4 +176,10 @@ fn main() {
     // let _ = zero.abs();
     // 型が指定されていないためコンパイラにはabsメソッドが見付けられない
     let _ = i64::abs(zero);
+
+    use rand::random;
+    // Rngトレイトを実装したrandom()で要求される型を推論できないためジェネリック関数で呼ぶ必要がある
+    // let _x = random();
+    let _y = random::<f64>();  // 0.0 <= x < 1.0の値を生成
+    let _z = random::<bool>(); // true or falseを生成
 }
