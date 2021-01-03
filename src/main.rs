@@ -183,3 +183,16 @@ fn main() {
     let _y = random::<f64>();  // 0.0 <= x < 1.0の値を生成
     let _z = random::<bool>(); // true or falseを生成
 }
+
+use std::ops::{Add, Mul};
+fn dot<N>(v1: &[N], v2: &[N]) -> N
+    where N: Add<Output=N> + Mul<Output=N> + Default + Copy
+{
+    let mut total = N::default();
+    for i in 0 .. v1.len() {
+        total = total + v1[i] * v2[i];
+    }
+
+    total
+}
+
