@@ -184,11 +184,25 @@ fn main() {
     let _z = random::<bool>(); // true or falseを生成
 }
 
+// ジェネリックな数値演算を行う関数の定義
+// where句でコンパイラに多くの制約を伝えなければいけない
 use std::ops::{Add, Mul};
 fn dot<N>(v1: &[N], v2: &[N]) -> N
     where N: Add<Output=N> + Mul<Output=N> + Default + Copy
 {
+    // Defaultトレイトを実装しているとジェネリックな数値型のdefault()は常に0を返す
     let mut total = N::default();
+    for i in 0 .. v1.len() {
+        total = total + v1[i] * v2[i];
+    }
+
+    total
+}
+
+// 3rd partyクレート「num」を使うとNumberトレイトで短く書ける
+use num::Num;
+fn dot_num<N: Num + Copy>(v1: &[N], v2: &[N]) -> N {
+    let mut total = N::zero();
     for i in 0 .. v1.len() {
         total = total + v1[i] * v2[i];
     }
@@ -200,4 +214,7 @@ fn dot<N>(v1: &[N], v2: &[N]) -> N
 fn test_dot() {
     assert_eq!(dot(&[1, 2, 3, 4], &[1, 1, 1, 1]), 10);
     assert_eq!(dot(&[53.0, 7.0], &[1.0, 5.0]), 88.0);
+
+    assert_eq!(dot_num(&[1, 2, 3, 4], &[1, 1, 1, 1]), 10);
+    assert_eq!(dot_num(&[53.0, 7.0], &[1.0, 5.0]), 88.0);
 }
